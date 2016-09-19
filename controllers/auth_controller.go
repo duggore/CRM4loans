@@ -2,10 +2,10 @@ package controllers
 
 import (
 	//"encoding/json"
+	"CRM4loans/services"
+	"CRM4loans/services/models"
 	"log"
 	"net/http"
-	"rest_hello/services"
-	"rest_hello/services/models"
 
 	"github.com/gorilla/context"
 )
@@ -19,9 +19,11 @@ func Login(w http.ResponseWriter, r *http.Request) { //, next http.HandlerFunc) 
 
 	responseStatus, token := services.Login(requestUser)
 	if responseStatus == http.StatusOK {
+		log.Println("services.Login returned OK")
 		context.Set(r, "token", token)
 		MainController(w, r, nil)
 	} else {
+		log.Println("services.Login did not return OK")
 		http.Redirect(w, r, "/login", http.StatusFound)
 	}
 

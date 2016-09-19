@@ -3,8 +3,8 @@ package controllers
 import (
 	"encoding/json"
 	"net/http"
-	//	"rest_hello/services"
-	"rest_hello/services/models"
+	//	"CRM4loans/services"
+	"CRM4loans/services/models"
 )
 
 func AddUserController(w http.ResponseWriter, r *http.Request, next http.HandlerFunc) {

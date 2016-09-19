@@ -1,9 +1,9 @@
 package authentication
 
 import (
+	"CRM4loans/services/models"
+	"CRM4loans/settings"
 	"bufio"
-	"rest_hello/services/models"
-	"rest_hello/settings"
 
 	"crypto/rsa"
 	"crypto/x509"
@@ -48,7 +48,6 @@ func (backend *JWTAuthenticationBackend) GenerateToken(userUUID string) (string,
 	token.Claims = claims
 	tokenString, err := token.SignedString(backend.privateKey)
 	if err != nil {
-		panic(err)
 		return "", err
 	}
 	return tokenString, nil

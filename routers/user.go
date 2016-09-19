@@ -1,8 +1,8 @@
 package routers
 
 import (
-	"rest_hello/controllers"
-	"rest_hello/core/authentication"
+	"CRM4loans/controllers"
+	"CRM4loans/core/authentication"
 
 	"github.com/codegangsta/negroni"
 	"github.com/gorilla/mux"

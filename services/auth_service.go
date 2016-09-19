@@ -1,9 +1,9 @@
 package services
 
 import (
-	"rest_hello/api/parameters"
-	"rest_hello/core/authentication"
-	"rest_hello/services/models"
+	"CRM4loans/api/parameters"
+	"CRM4loans/core/authentication"
+	"CRM4loans/services/models"
 	"encoding/json"
 
 	"net/http"
@@ -24,6 +24,3 @@ func Login(requestUser *models.User) (int, []byte) {
 
 	return http.StatusUnauthorized, []byte("")
 }
-
-
-
