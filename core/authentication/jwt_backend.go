@@ -58,6 +58,8 @@ func (backend *JWTAuthenticationBackend) Authenticate(user *models.User) bool {
 	for i := 0; i < len(settings.Get().User); i++ {
 		if user.Username == settings.Get().User[i].Username {
 			fmt.Println(settings.Get().User[i].Password)
+			hash, _ := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
+			fmt.Println(string(hash))
 			return bcrypt.CompareHashAndPassword([]byte(settings.Get().User[i].Password), []byte(user.Password)) == nil
 		}
 	}

@@ -3,6 +3,6 @@
 	"PublicKeyPath": "./settings/keys/public_key.pub",
 	"JWTExpirationDelta": 72,
 	"User":[
-		{ "Username":"test", "Password":"$2a$10$FjqNE0pXInWs4SQHMuXKv.2CnWuIxeUk7pDEC9HkkmLV7THPIxTlS"}
+		{ "Username":"test", "Password":"$2a$10$sROsNIREdAWmJyo2dDmMkuFMtdCbmh45yBRojO9gz1uxykw2NcrzK"}
 		]
 }
