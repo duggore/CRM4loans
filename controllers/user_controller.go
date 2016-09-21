@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 	//	"CRM4loans/services"
-	"CRM4loans/services/models"
+	"CRM4loans/models"
 )
 
 func AddUserController(w http.ResponseWriter, r *http.Request, next http.HandlerFunc) {

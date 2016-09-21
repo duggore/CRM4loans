@@ -2,8 +2,8 @@ package controllers
 
 import (
 	//"encoding/json"
-	"CRM4loans/services"
-	"CRM4loans/services/models"
+	"CRM4loans/core/authentication"
+	"CRM4loans/models"
 	"log"
 	"net/http"
 
@@ -17,7 +17,7 @@ func Login(w http.ResponseWriter, r *http.Request) { //, next http.HandlerFunc) 
 	log.Println(requestUser.Username)
 	log.Println(requestUser.Password)
 
-	responseStatus, token := services.Login(requestUser)
+	responseStatus, token := authentication.Login(requestUser)
 	if responseStatus == http.StatusOK {
 		log.Println("services.Login returned OK")
 		context.Set(r, "token", token)

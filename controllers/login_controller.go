@@ -7,7 +7,11 @@ import (
 
 func LoginController(w http.ResponseWriter, r *http.Request) {
 
-	t, _ := template.ParseFiles("./templates/login.html")
+	t, err := template.ParseFiles("./templates/login.html")
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
 	t.Execute(w, nil)
 
 }

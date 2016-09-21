@@ -1,7 +1,7 @@
 package authentication
 
 import (
-	"CRM4loans/services/models"
+	"CRM4loans/models"
 	"CRM4loans/settings"
 	"bufio"
 
@@ -26,7 +26,7 @@ const (
 	expireOffset  = 3600
 )
 
-var authBackendInstance *JWTAuthenticationBackend = nil
+var authBackendInstance *JWTAuthenticationBackend //= nil
 
 func InitJWTAuthenticationBackend() *JWTAuthenticationBackend {
 	if authBackendInstance == nil {
