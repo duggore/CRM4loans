@@ -1,7 +1,7 @@
 package main
 
 import (
-	"CRM4loans/routers"
+	"CRM4loans/app/routers"
 	"CRM4loans/settings"
 	"net/http"
 
