@@ -4,50 +4,43 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-//	"os"
 )
 
-
 type UserPassword struct {
-	Username	string
-	Password	string
+	Username string
+	Password string
 }
 
 type Settings struct {
 	PrivateKeyPath     string
 	PublicKeyPath      string
 	JWTExpirationDelta int
-	User				[]UserPassword
+	User               []UserPassword
+	PathForTemplates   map[string]string
 }
 
-
-
-var settings Settings = Settings{}
-
+var Cfg Settings = Settings{}
 
 func Init() {
 
-	LoadSettings() 
+	LoadSettings()
 }
 
-func LoadSettings() { 
-	content, err := ioutil.ReadFile("settings/pre.json")
+func LoadSettings() {
+	content, err := ioutil.ReadFile("settings/config.json")
 	if err != nil {
 		fmt.Println("Error while reading config file", err)
 	}
-	settings = Settings{}
-	jsonErr := json.Unmarshal(content, &settings)
+	Cfg = Settings{}
+	jsonErr := json.Unmarshal(content, &Cfg)
 	if jsonErr != nil {
 		fmt.Println("Error while parsing config file", jsonErr)
 	}
 }
 
-
 func Get() Settings {
-	if &settings == nil {
+	if &Cfg == nil {
 		Init()
 	}
-	return settings
+	return Cfg
 }
-
-

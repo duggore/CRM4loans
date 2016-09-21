@@ -4,5 +4,8 @@
 	"JWTExpirationDelta": 72,
 	"User":[
 		{ "Username":"test", "Password":"$2a$10$sROsNIREdAWmJyo2dDmMkuFMtdCbmh45yBRojO9gz1uxykw2NcrzK"}
-		]
+	],
+	"PathForTemplates":
+			{"index":"./templates/index.tmpl","login":"./templates/login.tmpl"}
+
 }
