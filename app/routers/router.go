@@ -4,13 +4,15 @@ import (
 	"github.com/gorilla/mux"
 )
 
+//InitRoutes - define routes
 func InitRoutes() *mux.Router {
 	router := mux.NewRouter()
-	router = MainRoutes(router)
+	router = MainRoutesGet(router)
 	router = SetHelloRoutes(router)
-	router = SetAuthenticationRoutes(router)
+	router = GetTokenRoutes(router)
 	router = SetAddUserRoutes(router)
-	router = LoginRoutes(router)
+	router = LoginRoutesGet(router)
+	router = LoginRoutesPost(router)
 	router = StaticRoutes(router)
 	return router
 }

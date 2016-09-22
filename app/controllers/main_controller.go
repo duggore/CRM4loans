@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"CRM4loans/settings"
 	"html/template"
 	"log"
 	"net/http"
@@ -11,21 +12,22 @@ import (
 func MainController(w http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
 	log.Print("Enter to MainController")
 	token := context.Get(r, "token")
-	//log.Print((string)reflect.ValueOf(token).Bytes())
-	// funcMap := template.FuncMap{
-	// 	"TOKEN": strings.Title,
-	// }
 
-	t, err := template.ParseFiles("./templates/main.tmpl")
+	t, err := template.ParseFiles(settings.Get().PathForTemplates["main"])
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		panic(-1)
 	}
 
-	err = t.ExecuteTemplate(w, "main.tmpl", string(token.([]uint8))) // reflect.ValueOf(token).String())
+	err = t.Execute(w, string(token.([]uint8))) // reflect.ValueOf(token).String())
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		panic(-2)
 	}
+
+}
+
+func MainControllerGet(w http.ResponseWriter, r *http.Request) {
+	http.Redirect(w, r, "/login", http.StatusFound)
 
 }

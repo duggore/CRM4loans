@@ -6,8 +6,14 @@ import (
 	"github.com/gorilla/mux"
 )
 
-func LoginRoutes(router *mux.Router) *mux.Router {
-	router.HandleFunc("/login", controllers.LoginController).Methods("GET")
+func LoginRoutesGet(router *mux.Router) *mux.Router {
+	router.HandleFunc("/login", controllers.LoginPage).Methods("GET")
+
+	return router
+}
+
+func LoginRoutesPost(router *mux.Router) *mux.Router {
+	router.HandleFunc("/login", controllers.LoginHandler).Methods("POST")
 
 	return router
 }
