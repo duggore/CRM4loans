@@ -1,12 +1,63 @@
 <html>
 <head>
 <title>Login</title>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 </head>
 <body>
-<form action="/api/v1/gettoken" method="POST">
-    Username:<input type="text" name="username">
-    Password:<input type="password" name="password">
-    <input type="submit" value="Login">
-</form>
+
+  <form id="loginForm" class="form-horizontal" style="margin-top: 15%;" action="javascript:void(0)" method="GET">
+    <div id="error" class="row hidden">
+      <p class="text-danger" style="text-align: center;">Please check Username and password</p>
+    </div>
+    <div class="row form-group">
+      <label class="col-xs-offset-2 col-sm-offset-1 col-sm-3 col-xs-8 control-label">Username</label>
+      <div class="col-sm-offset-0 col-xs-offset-2 col-sm-4 col-xs-8">
+        <input type="text" class="form-control" placeholder="Username" name="username">
+      </div>
+    </div>
+    <div class="row form-group">
+      <label class="col-xs-offset-2 col-sm-offset-1 col-sm-3 col-xs-8 control-label">Password</label>
+      <div class="col-sm-offset-0 col-xs-offset-2 col-sm-4 col-xs-8">
+        <input type="password" class="form-control" placeholder="Password" name="password">
+      </div>
+    </div>
+
+    <div class="row form-group">
+      <div class="col-sm-5 col-xs-4"> </div>
+      <div class="col-sm-2  col-xs-4">
+        <button type="submit" class="btn btn-default" style="margin: auto; width: 100%;">Sign in</button>
+      </div>
+    </div>
+  </form>
+
+<script type="text/javascript">
+    $("#loginForm").submit(function(event) {
+      $.ajax({
+        url: "/api/v1/gettoken",
+        type: 'post',
+        dataType: 'json',
+        data: $("#loginForm").serialize(),
+        complete: function(data,textStatus, xhr) {
+
+          if (textStatus!="error") {
+            localStorage.setItem('t',data.token);
+            window.location.replace('/');
+          } else {
+
+            $("#error").removeClass("hidden").addClass("show");
+          }
+        }
+
+      })
+    })
+</script>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </body>
 </html>

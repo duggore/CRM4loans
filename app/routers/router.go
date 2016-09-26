@@ -7,7 +7,7 @@ import (
 //InitRoutes - define routes
 func InitRoutes() *mux.Router {
 	router := mux.NewRouter()
-	router = MainRoutesGet(router)
+	router = MainRoutes(router)
 	router = SetHelloRoutes(router)
 	router = GetTokenRoutes(router)
 	router = SetAddUserRoutes(router)

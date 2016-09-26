@@ -5,13 +5,11 @@ import (
 	"html/template"
 	"log"
 	"net/http"
-
-	"github.com/gorilla/context"
 )
 
-func MainController(w http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
+func MainController(w http.ResponseWriter, r *http.Request) { //, next http.HandlerFunc) {
 	log.Print("Enter to MainController")
-	token := context.Get(r, "token")
+	//	token := context.Get(r, "token")
 
 	t, err := template.ParseFiles(settings.Get().PathForTemplates["main"])
 	if err != nil {
@@ -19,7 +17,7 @@ func MainController(w http.ResponseWriter, r *http.Request, next http.HandlerFun
 		panic(-1)
 	}
 
-	err = t.Execute(w, string(token.([]uint8))) // reflect.ValueOf(token).String())
+	err = t.Execute(w, nil) // string(token.([]uint8))
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		panic(-2)
@@ -27,7 +25,7 @@ func MainController(w http.ResponseWriter, r *http.Request, next http.HandlerFun
 
 }
 
-func MainControllerGet(w http.ResponseWriter, r *http.Request) {
-	http.Redirect(w, r, "/login", http.StatusFound)
-
-}
+// func MainControllerGet(w http.ResponseWriter, r *http.Request) {
+// 	http.Redirect(w, r, "/login", http.StatusFound)
+//
+// }

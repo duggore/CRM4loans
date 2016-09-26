@@ -16,7 +16,7 @@ import (
 // 	return router
 // }
 
-func MainRoutesGet(router *mux.Router) *mux.Router {
-	router.HandleFunc("/", controllers.MainControllerGet).Methods("GET")
+func MainRoutes(router *mux.Router) *mux.Router {
+	router.HandleFunc("/", controllers.MainController).Methods("GET")
 	return router
 }

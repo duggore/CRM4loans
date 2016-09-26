@@ -4,7 +4,6 @@ import (
 	//"encoding/json"
 	"CRM4loans/app/core/authentication"
 	"fmt"
-	"log"
 	"net/http"
 
 	jwt "github.com/dgrijalva/jwt-go"
@@ -38,14 +37,15 @@ func RequireTokenAuthentication(rw http.ResponseWriter, req *http.Request, next 
 // GetToken handler of user authentication. If it is Ok then return token, else redirect to /login
 func GetToken(w http.ResponseWriter, r *http.Request) {
 
-	token := GetTokenFromReques(r)
+	token := authentication.GetTokenFromReques(r)
 	if token != nil {
-		log.Println("services.Login returned OK")
+		//		log.Println("services.Login returned OK")
 		//		context.Set(r, "token", token)
 		//		MainController(w, r, nil)
 		w.Write(token)
 	} else {
-		log.Println("services.Login did not return OK")
-		http.Redirect(w, r, "/login", http.StatusFound)
+		//		log.Println("services.Login did not return OK")
+		//		http.Redirect(w, r, "/login", http.StatusFound)
+		w.WriteHeader(http.StatusUnauthorized)
 	}
 }
