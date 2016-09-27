@@ -8,6 +8,7 @@ import (
 
 	jwt "github.com/dgrijalva/jwt-go"
 	request "github.com/dgrijalva/jwt-go/request"
+	"github.com/gorilla/context"
 )
 
 func RequireTokenAuthentication(rw http.ResponseWriter, req *http.Request, next http.HandlerFunc) {
@@ -27,6 +28,7 @@ func RequireTokenAuthentication(rw http.ResponseWriter, req *http.Request, next 
 	})
 
 	if err == nil && token.Valid {
+		context.Set(req, "token", token)
 		next(rw, req)
 	} else {
 		//rw.WriteHeader(http.StatusUnauthorized)
