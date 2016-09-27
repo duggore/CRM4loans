@@ -12,8 +12,8 @@ func LoginRoutesGet(router *mux.Router) *mux.Router {
 	return router
 }
 
-func LoginRoutesPost(router *mux.Router) *mux.Router {
-	router.HandleFunc("/login", controllers.LoginHandler).Methods("POST")
-
-	return router
-}
+// func LoginRoutesPost(router *mux.Router) *mux.Router {
+// 	router.HandleFunc("/login", controllers.LoginHandler).Methods("POST")
+//
+// 	return router
+// }

@@ -12,20 +12,20 @@
     <div class="row form-group">
       <label class="col-xs-offset-2 col-sm-offset-1 col-sm-3 col-xs-8 control-label">Username</label>
       <div class="col-sm-offset-0 col-xs-offset-2 col-sm-4 col-xs-8">
-        <input type="text" class="form-control" placeholder="Username" name="username">
+        <input type="text" class="form-control" placeholder="Username" name="username" style="max-width: 350; min-width: 180;">
       </div>
     </div>
     <div class="row form-group">
       <label class="col-xs-offset-2 col-sm-offset-1 col-sm-3 col-xs-8 control-label">Password</label>
       <div class="col-sm-offset-0 col-xs-offset-2 col-sm-4 col-xs-8">
-        <input type="password" class="form-control" placeholder="Password" name="password">
+        <input type="password" class="form-control" placeholder="Password" name="password" style="max-width: 350; min-width: 180;">
       </div>
     </div>
 
     <div class="row form-group">
       <div class="col-sm-5 col-xs-4"> </div>
       <div class="col-sm-2  col-xs-4">
-        <button type="submit" class="btn btn-default" style="margin: auto; width: 100%;">Sign in</button>
+        <button type="submit" class="btn btn-default" style="margin: auto; width: 100%; max-width: 150; min-width: 75;">Sign in</button>
       </div>
     </div>
   </form>
@@ -39,8 +39,8 @@
         data: $("#loginForm").serialize(),
         complete: function(data,textStatus, xhr) {
 
-          if (textStatus!="error") {
-            localStorage.setItem('t',data.token);
+          if (data.status==200) {
+            localStorage.setItem('t',data.responseJSON.token);
             window.location.replace('/');
           } else {
 
