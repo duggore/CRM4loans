@@ -4,6 +4,7 @@ import (
 	//"encoding/json"
 	"CRM4loans/app/core/authentication"
 	"fmt"
+	"log"
 	"net/http"
 
 	jwt "github.com/dgrijalva/jwt-go"
@@ -12,6 +13,7 @@ import (
 )
 
 func RequireTokenAuthentication(rw http.ResponseWriter, req *http.Request, next http.HandlerFunc) {
+	log.Print("Enter to RequireTokenAuthentication")
 	authBackend := authentication.InitJWTAuthenticationBackend()
 
 	//	if token, err := request.ParseFromRequest(req, request.OAuth2Extractor, keyLookupFunc); err == nil {
@@ -28,6 +30,7 @@ func RequireTokenAuthentication(rw http.ResponseWriter, req *http.Request, next 
 	})
 
 	if err == nil && token.Valid {
+		log.Print("Token is Valid")
 		context.Set(req, "token", token)
 		next(rw, req)
 	} else {

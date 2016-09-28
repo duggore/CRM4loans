@@ -1,9 +1,9 @@
 package controllers
 
 import (
+	"encoding/json"
+	"log"
 	"net/http"
-
-	"github.com/gorilla/context"
 )
 
 type MenuItem struct {
@@ -19,17 +19,23 @@ type Menu struct {
 
 //MenuGet - return menu in JSON format
 func MenuGet(w http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
-	token := context.Get(r, "token")
+	//	token := context.Get(r, "token")
 
 	//TODO create response depending for token
-	menu := Menu{
-		Name: "Main menu",
-		Items: MenuItem[
-			{
+	menuItems := []MenuItem{
+		MenuItem{
 			Name: "Администрирование",
 			Link: "/admin",
-			}]
+		},
 	}
-	w.Write([]byte(menu))
+	menu := Menu{
+		Name:  "Main menu",
+		Items: menuItems,
+	}
+	b, err := json.Marshal(menu)
+	if err != nil {
+		log.Print("error:", err)
+	}
+	w.Write(b)
 
 }

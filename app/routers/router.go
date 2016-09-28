@@ -8,6 +8,7 @@ import (
 func InitRoutes() *mux.Router {
 	router := mux.NewRouter()
 	router = MainRoutes(router)
+	router = MenuGet(router)
 	//	router = SetHelloRoutes(router)
 	router = GetTokenRoutes(router)
 	router = SetAddUserRoutes(router)
