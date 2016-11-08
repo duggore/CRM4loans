@@ -8,7 +8,7 @@ import (
 	"crypto/rsa"
 	"crypto/x509"
 	"encoding/pem"
-	"fmt"
+	//	"fmt"
 	"os"
 	"time"
 
@@ -39,12 +39,16 @@ func InitJWTAuthenticationBackend() *JWTAuthenticationBackend {
 	return authBackendInstance
 }
 
-func (backend *JWTAuthenticationBackend) GenerateToken(userUUID string) (string, error) {
+func (backend *JWTAuthenticationBackend) GenerateToken(userUUID int) (string, error) {
 	token := jwt.New(jwt.SigningMethodRS512)
 	claims := make(jwt.MapClaims)
-	claims["exp"] = time.Now().Add(time.Hour * time.Duration(settings.Get().JWTExpirationDelta)).Unix()
+	claims["exp"] = time.Now().Add(time.Hour * time.Duration(settings.Cfg.JWTExpirationDelta)).Unix()
 	claims["iat"] = time.Now().Unix()
 	claims["sub"] = userUUID
+	// var claims jwt.StandardClaims
+	// claims.ExpiresAt = time.Now().Add(time.Hour * time.Duration(settings.Get().JWTExpirationDelta)).Unix()
+	// claims.IssuedAt = time.Now().Unix()
+	// claims.Subject = userUUID
 	token.Claims = claims
 	tokenString, err := token.SignedString(backend.privateKey)
 	if err != nil {
@@ -53,17 +57,19 @@ func (backend *JWTAuthenticationBackend) GenerateToken(userUUID string) (string,
 	return tokenString, nil
 }
 
-func (backend *JWTAuthenticationBackend) Authenticate(user *models.User) bool {
+func (backend *JWTAuthenticationBackend) Authenticate(user *models.User) (bool, int) {
 
-	for i := 0; i < len(settings.Get().User); i++ {
-		if user.Username == settings.Get().User[i].Username {
-			fmt.Println(settings.Get().User[i].Password)
-			hash, _ := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
-			fmt.Println(string(hash))
-			return bcrypt.CompareHashAndPassword([]byte(settings.Get().User[i].Password), []byte(user.Password)) == nil
+	for i := 0; i < len(settings.Cfg.User); i++ {
+		u := settings.Cfg.User[i]
+		if user.Username == u.Username {
+			//	fmt.Println(settings.Get().User[i].Password)
+			//	hash, _ := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
+			//	fmt.Println(string(hash))
+			result := bcrypt.CompareHashAndPassword([]byte(settings.Cfg.User[i].Password), []byte(user.Password)) == nil
+			return result, u.UUID
 		}
 	}
-	return false
+	return false, 0
 
 }
 
@@ -79,7 +85,7 @@ func (backend *JWTAuthenticationBackend) getTokenRemainingValidity(timestamp int
 }
 
 func getPrivateKey() *rsa.PrivateKey {
-	privateKeyFile, err := os.Open(settings.Get().PrivateKeyPath)
+	privateKeyFile, err := os.Open(settings.Cfg.PrivateKeyPath)
 	if err != nil {
 		panic(err)
 	}
@@ -105,7 +111,7 @@ func getPrivateKey() *rsa.PrivateKey {
 }
 
 func getPublicKey() *rsa.PublicKey {
-	publicKeyFile, err := os.Open(settings.Get().PublicKeyPath)
+	publicKeyFile, err := os.Open(settings.Cfg.PublicKeyPath)
 	if err != nil {
 		panic(err)
 	}

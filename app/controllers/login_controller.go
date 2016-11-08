@@ -3,19 +3,16 @@ package controllers
 import (
 	"CRM4loans/settings"
 
-	"html/template"
 	"net/http"
 )
 
 //LoginPage - handler for generate Login Page from template
 func LoginPage(w http.ResponseWriter, r *http.Request) {
-	path := settings.Get().PathForTemplates["login"]
-	t, err := template.ParseFiles(path)
+	err := settings.Cfg.Templates["login"].Execute(w, nil) // string(token.([]uint8))
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
-		panic("Error parsing:" + path)
+		panic(-2)
 	}
-	t.Execute(w, nil)
 
 }
 

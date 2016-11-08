@@ -3,31 +3,32 @@ package controllers
 import (
 	//"encoding/json"
 	"CRM4loans/app/core/authentication"
-	"fmt"
+	//	"fmt"
 	"log"
 	"net/http"
 
-	jwt "github.com/dgrijalva/jwt-go"
-	request "github.com/dgrijalva/jwt-go/request"
+	//	jwt "github.com/dgrijalva/jwt-go"
+	//	request "github.com/dgrijalva/jwt-go/request"
 	"github.com/gorilla/context"
 )
 
 func RequireTokenAuthentication(rw http.ResponseWriter, req *http.Request, next http.HandlerFunc) {
 	log.Print("Enter to RequireTokenAuthentication")
-	authBackend := authentication.InitJWTAuthenticationBackend()
+
+	// authBackend := authentication.InitJWTAuthenticationBackend()
+	// token, err := request.ParseFromRequest(req, request.OAuth2Extractor, func(token *jwt.Token) (interface{}, error) {
+	// 	if _, ok := token.Method.(*jwt.SigningMethodRSA); !ok {
+	// 		return nil, fmt.Errorf("Unexpected signing method: %v", token.Header["alg"])
+	// 	} else {
+	// 		return authBackend.PublicKey, nil
+	// 	}
+	// })
 
 	//	if token, err := request.ParseFromRequest(req, request.OAuth2Extractor, keyLookupFunc); err == nil {
 	//        claims := token.Claims.(jwt.MapClaims)
 	//        fmt.Printf("Token for user %v expires %v", claims["user"], claims["exp"])
 	//    }
-
-	token, err := request.ParseFromRequest(req, request.OAuth2Extractor, func(token *jwt.Token) (interface{}, error) {
-		if _, ok := token.Method.(*jwt.SigningMethodRSA); !ok {
-			return nil, fmt.Errorf("Unexpected signing method: %v", token.Header["alg"])
-		} else {
-			return authBackend.PublicKey, nil
-		}
-	})
+	token, err := authentication.TokenFromRequest(req)
 
 	if err == nil && token.Valid {
 		log.Print("Token is Valid")
@@ -42,7 +43,7 @@ func RequireTokenAuthentication(rw http.ResponseWriter, req *http.Request, next 
 // GetToken handler of user authentication. If it is Ok then return token, else redirect to /login
 func GetToken(w http.ResponseWriter, r *http.Request) {
 
-	token := authentication.GetTokenFromReques(r)
+	token := authentication.GetTokenFromRequest(r)
 	if token != nil {
 		//		log.Println("services.Login returned OK")
 		//		context.Set(r, "token", token)

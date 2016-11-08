@@ -3,12 +3,43 @@
 	"PublicKeyPath": "./settings/keys/public_key.pub",
 	"JWTExpirationDelta": 72,
 	"User":[
-		{ "Username":"test", "Password":"$2a$10$sROsNIREdAWmJyo2dDmMkuFMtdCbmh45yBRojO9gz1uxykw2NcrzK"}
+		{ "UUID": 1, "Username":"test", "Password":"$2a$10$sROsNIREdAWmJyo2dDmMkuFMtdCbmh45yBRojO9gz1uxykw2NcrzK"}
 	],
-	"PathForTemplates":
+	"Group":[
+		{ "GUID": 1,"Groupname":"test group","Users": [1]}
+		],
+	"PathForTemplates":	{
+		"index":"./templates/index.tmpl",
+		"login":"./templates/login.tmpl",
+		"main":"./templates/main.tmpl"
+		},
+	"MainMenu": {
+		"Name": "Главное меню",
+		"Items": [
 			{
-				"index":"./templates/index.tmpl",
-				"login":"./templates/login.tmpl",
-				"main":"./templates/main.tmpl"}
+				"Name": "Администрирование",
+				"Link": "/admin",
+				"Permissions": {
+					"Read": {
+						"Users": [1]
+					}
+				}
+			},
+			{
+				"Name": "Договора",
+				"Link": "/contracts",
+				"Permissions": {
+					"Read": {
+						"Users": [1]
+					}
+				}
+			}
+		],
+		"Permissions": {
+					"Read": {
+						"Users": [1]
+					}
+		}
+	}
 
 }

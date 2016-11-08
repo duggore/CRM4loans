@@ -1,9 +1,8 @@
 
 class MenuBox extends React.Component {
   constructor() {
-    super();
-      this.state={data:""};
-
+     super();
+      this.state={data:[]};
   }
 
   componentDidMount() {
@@ -19,25 +18,27 @@ class MenuBox extends React.Component {
          xhr.setRequestHeader('Authorization','Bearer ' + t);
       }.bind(this),
     });
-  //  this.setState({a:this.state.a+1});
   }
 
   render() {
     return (
       <div>
-      <Menu data={this.state.data.Items} />
+        <Menu data={this.state.data.Items} />
       </div>
     );
   }
 }
 
 class Menu extends React.Component {
-  constructor() {
-    super();
-  } //
   render() {
     return (
-      <div></div>
+      <div id="primary_menu_items">
+        {this.props.data && this.props.data.map(function(m,i){
+          return <a key={i} href={m.Link}>{m.Name}</a>;
+          })
+        }
+      </div>
+      
     );
   }
 }

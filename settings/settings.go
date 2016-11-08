@@ -1,46 +1,69 @@
 package settings
 
 import (
+	"CRM4loans/app/models"
+	"CRM4loans/app/models/site"
 	"encoding/json"
-	"fmt"
+	//	"fmt"
+	"html/template"
 	"io/ioutil"
 )
 
-type UserPassword struct {
-	Username string
-	Password string
-}
+// type UserPassword struct {
+// 	Username string
+// 	Password string
+// }
 
 type Settings struct {
 	PrivateKeyPath     string
 	PublicKeyPath      string
 	JWTExpirationDelta int
-	User               []UserPassword
+	User               []models.User
+	Group              []models.Group
 	PathForTemplates   map[string]string
+	Templates          map[string]*template.Template
+	MainMenu           site.Menu
 }
 
-var Cfg Settings = Settings{}
+var Cfg *Settings
 
-func Init() {
-
-	LoadSettings()
+func Init() (*Settings, error) {
+	Cfg = new(Settings)
+	err := Cfg.LoadSettings()
+	if err != nil {
+		return nil, err
+	}
+	err = Cfg.LoadTemplates()
+	if err != nil {
+		return nil, err
+	}
+	return Cfg, nil
 }
 
-func LoadSettings() {
+func (s *Settings) LoadSettings() error {
 	content, err := ioutil.ReadFile("settings/config.json")
 	if err != nil {
-		fmt.Println("Error while reading config file", err)
+		return err
 	}
-	Cfg = Settings{}
-	jsonErr := json.Unmarshal(content, &Cfg)
-	if jsonErr != nil {
-		fmt.Println("Error while parsing config file", jsonErr)
+
+	err = json.Unmarshal(content, Cfg)
+	if err != nil {
+		return err
 	}
+	return nil
 }
 
-func Get() Settings {
-	if &Cfg == nil {
-		Init()
+func (s *Settings) LoadTemplates() error {
+	var err error
+	s.Templates = make(map[string]*template.Template)
+	s.Templates["main"], err = template.ParseFiles(s.PathForTemplates["main"])
+	if err != nil {
+		return err
 	}
-	return Cfg
+	s.Templates["login"], err = template.ParseFiles(s.PathForTemplates["login"])
+	if err != nil {
+		return err
+	}
+	return nil
+
 }

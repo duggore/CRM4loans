@@ -2,10 +2,10 @@
 <html>
 <head>
   <title>Main</title>
-  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="static/js/jquery-1.10.2.js"></script>
   <script src="static/js/react.js"></script>
   <script src="static/js/react-dom.js"></script>
-  <script src="https://unpkg.com/babel-core@5.8.38/browser.min.js"></script>
+  <script src="static/js/browser.min.js"></script>
 </head>
 <body>
 
@@ -16,22 +16,7 @@
     }
   </script>
 
-  <!-- <script type="text/javascript">
-
-        $.ajax({
-          url: "/api/v1/menu/getall",
-          type: 'POST',
-          dataType: 'json',
-          success: function(data,textStatus, xhr) {
-
-            $("#menu").append(data.Items[0].Name)
-          },
-          beforeSend: function(xhr) {
-             xhr.setRequestHeader('Authorization','Bearer ' + t);
-          },
-        })
-
-  </script> -->
+ 
   <div id="menu">
   {{.}}
   </div>
