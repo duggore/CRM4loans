@@ -21,7 +21,7 @@
 				"Link": "/admin",
 				"Permissions": {
 					"Read": {
-						"Users": [1]
+						"Users": [0]
 					}
 				}
 			},

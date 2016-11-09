@@ -2,16 +2,24 @@ package permissions
 
 import (
 	"CRM4loans/app/models"
+	//	"CRM4loans/app/models/site"
 	"log"
 )
 
-type PermissionsChecker interface {
+// type PermissionsGetter interface {
+// 	GetPermissions() models.Permissions
+// }
+
+type PermissionsCheсker interface {
+	//	CheckPermissions(uuid int, g []models.Group) PermissionsCheсker
 	GetPermissions() models.Permissions
+	GetItems() []PermissionsCheсker
 }
 
-func CheckReadPermissions(object PermissionsChecker, uuid int, groups []models.Group) bool {
+func CheckReadPermissions(object *PermissionsCheсker, uuid int, groups []models.Group) bool {
 	p := object.GetPermissions()
-	log.Print(p)
+	//	log.Print("GetPermissions")
+	//	log.Print(object)
 	for _, u := range p.Read.Users {
 		log.Print("compare:", u, " and ", uuid)
 		if u == uuid {
@@ -30,4 +38,24 @@ func CheckReadPermissions(object PermissionsChecker, uuid int, groups []models.G
 		}
 	}
 	return false
+}
+
+func CheckPermissions(object *PermissionsCheсker, uuid int, g []models.Group) { //*PermissionsCheсker {
+	log.Print("CheckPermissions")
+	log.Print(object)
+	if !CheckReadPermissions(object, uuid, g) {
+		log.Print("delete object")
+		log.Print(object)
+		//return nil
+		object = nil
+	}
+	log.Print("GetItems")
+	items := object.GetItems()
+	for i, o := range items {
+		items[i] = CheckPermissions(o, uuid, g)
+		//		if !CheckReadPermissions(o, uuid, g) {
+		//			items = append(items[:i], items[i+1:]...)
+		//		}
+	}
+	//return object
 }
