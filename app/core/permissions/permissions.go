@@ -6,20 +6,7 @@ import (
 	"log"
 )
 
-// type PermissionsGetter interface {
-// 	GetPermissions() models.Permissions
-// }
-
-type PermissionsCheсker interface {
-	//	CheckPermissions(uuid int, g []models.Group) PermissionsCheсker
-	GetPermissions() models.Permissions
-	GetItems() []PermissionsCheсker
-}
-
-func CheckReadPermissions(object *PermissionsCheсker, uuid int, groups []models.Group) bool {
-	p := object.GetPermissions()
-	//	log.Print("GetPermissions")
-	//	log.Print(object)
+func CheckReadPermissions(p *models.Permissions, uuid int, groups []models.Group) bool {
 	for _, u := range p.Read.Users {
 		log.Print("compare:", u, " and ", uuid)
 		if u == uuid {
@@ -40,22 +27,6 @@ func CheckReadPermissions(object *PermissionsCheсker, uuid int, groups []models
 	return false
 }
 
-func CheckPermissions(object *PermissionsCheсker, uuid int, g []models.Group) { //*PermissionsCheсker {
-	log.Print("CheckPermissions")
-	log.Print(object)
-	if !CheckReadPermissions(object, uuid, g) {
-		log.Print("delete object")
-		log.Print(object)
-		//return nil
-		object = nil
-	}
-	log.Print("GetItems")
-	items := object.GetItems()
-	for i, o := range items {
-		items[i] = CheckPermissions(o, uuid, g)
-		//		if !CheckReadPermissions(o, uuid, g) {
-		//			items = append(items[:i], items[i+1:]...)
-		//		}
-	}
-	//return object
+func CheckPermissions(p *models.Permissions, uuid int, g []models.Group) bool {
+	return CheckReadPermissions(p, uuid, g)
 }

@@ -22,9 +22,25 @@ class MenuBox extends React.Component {
 
   render() {
     return (
-      <div>
-        <Menu data={this.state.data.Items} />
-      </div>
+      <nav className="navbar navbar-default navbar-fixed-top">
+        <div className="container">
+          <div className="navbar-header">
+            <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span className="sr-only">Toggle navigation</span>
+              <span className="icon-bar"></span>
+              <span className="icon-bar"></span>
+              <span className="icon-bar"></span>
+            </button>
+            <a className="navbar-brand" href="#">CRM4Loans</a>
+          </div>
+          <div id="navbar" className="navbar-collapse collapse">
+            
+              <Menu data={this.state.data.Items} />
+           
+            
+          </div>
+        </div>
+      </nav>
     );
   }
 }
@@ -32,12 +48,22 @@ class MenuBox extends React.Component {
 class Menu extends React.Component {
   render() {
     return (
-      <div id="primary_menu_items">
+      <ul className="nav navbar-nav">
         {this.props.data && this.props.data.map(function(m,i){
-          return <a key={i} href={m.Link}>{m.Name}</a>;
+          return  <li key={i} className="dropdown">
+                    <a href={m.Link} className="dropdown-toggle" data-toggle="dropdown" role="button"> {m.Name}</a>
+                    <ul className="dropdown-menu">
+                      {m.Items && m.Items.map(function(mm,ii){
+                        return  <li>
+                                  <a href={mm.Link}> {mm.Name}</a> 
+                                </li>
+                        })
+                      }
+                    </ul> 
+                  </li>;
           })
         }
-      </div>
+       </ul>
       
     );
   }

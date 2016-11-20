@@ -6,7 +6,7 @@
 		{ "UUID": 1, "Username":"test", "Password":"$2a$10$sROsNIREdAWmJyo2dDmMkuFMtdCbmh45yBRojO9gz1uxykw2NcrzK"}
 	],
 	"Group":[
-		{ "GUID": 1,"Groupname":"test group","Users": [1]}
+		{ "GUID": 3,"Groupname":"test group","Users": [1]}
 		],
 	"PathForTemplates":	{
 		"index":"./templates/index.tmpl",
@@ -19,15 +19,58 @@
 			{
 				"Name": "Администрирование",
 				"Link": "/admin",
+				"Items": [
+					{
+						"Name": "Пользователи",
+						"Link": "/users",
+						"Permissions": {
+							"Read": {
+								"Users": [1]
+							}
+						}
+					},
+					{
+						"Name": "Группы",
+						"Link": "/groups",
+						"Permissions": {
+							"Read": {
+								"Users": [1]
+							}
+						}
+					},
+					{
+						"Name": "Права",
+						"Link": "/rights",
+						"Permissions": {
+							"Read": {
+								"Users": [1]
+							}
+						}
+					}
+
+
+				],
 				"Permissions": {
 					"Read": {
-						"Users": [0]
+						"Users": [1]
 					}
 				}
 			},
 			{
 				"Name": "Договора",
 				"Link": "/contracts",
+				"Items": [
+					{
+						"Name": "Администрирование",
+						"Link": "/admin",
+						"Permissions": {
+							"Read": {
+								"Users": [1]
+							}
+						}
+					}
+				],	
+			
 				"Permissions": {
 					"Read": {
 						"Users": [1]
