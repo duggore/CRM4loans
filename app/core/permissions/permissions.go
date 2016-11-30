@@ -2,6 +2,7 @@ package permissions
 
 import (
 	"CRM4loans/app/models"
+	jwt "github.com/dgrijalva/jwt-go"
 	//	"CRM4loans/app/models/site"
 	"log"
 )

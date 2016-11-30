@@ -13,6 +13,14 @@
 		"login":"./templates/login.tmpl",
 		"main":"./templates/main.tmpl"
 		},
+	"UserForm": {
+		"Name":"Пользователи",
+		"Permissions": {
+			"Read": {
+				"Users": [1]
+				}
+			}
+	},
 	"MainMenu": {
 		"Name": "Главное меню",
 		"Items": [
