@@ -51,11 +51,18 @@ class Menu extends React.Component {
       <ul className="nav navbar-nav">
         {this.props.data && this.props.data.map(function(m,i){
           return  <li key={i} className="dropdown">
-                    <a href={m.Link} className="dropdown-toggle" data-toggle="dropdown" role="button"> {m.Name}</a>
+                    <a className="dropdown-toggle" href={m.Link} data-toggle="dropdown" role="button"> {m.Name}</a>
                     <ul className="dropdown-menu">
                       {m.Items && m.Items.map(function(mm,ii){
-                        return  <li>
-                                  <a href={mm.Link}> {mm.Name}</a> 
+                        return  <li key={mm.Link}>
+                                  <a className={mm.Link} href="javascript:void(0)"> {mm.Name}</a>
+                                  <script>
+                                    var js="alert('{mm.Link}');return false;";
+                                    var newclick=new Function(js);
+                                    $(".users").attr("onclick","").click(newclick);
+                                    
+                                  
+                                   </script> 
                                 </li>
                         })
                       }
@@ -67,6 +74,25 @@ class Menu extends React.Component {
       
     );
   }
+}
+
+
+class Content extends React.Component {
+  constructor() {
+      super();
+      this.state={
+        activemenu: "users"};
+  }
+
+  render() {
+      return (
+        <div>
+          {this.props.activemenu}
+        </div>
+        )
+    }
+
+
 }
 
 

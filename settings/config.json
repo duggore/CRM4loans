@@ -30,7 +30,7 @@
 				"Items": [
 					{
 						"Name": "Пользователи",
-						"Link": "/users",
+						"Link": "users",
 						"Permissions": {
 							"Read": {
 								"Users": [1]
@@ -39,7 +39,7 @@
 					},
 					{
 						"Name": "Группы",
-						"Link": "/groups",
+						"Link": "groups",
 						"Permissions": {
 							"Read": {
 								"Users": [1]

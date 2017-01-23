@@ -18,5 +18,6 @@ import (
 
 func MainRoutes(router *mux.Router) *mux.Router {
 	router.HandleFunc("/", controllers.MainController).Methods("GET")
+
 	return router
 }
