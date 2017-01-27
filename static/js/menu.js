@@ -22,7 +22,7 @@ class MenuBox extends React.Component {
 
   render() {
     return (
-      <nav className="navbar navbar-default navbar-fixed-top">
+      <nav className="navbar navbar-default">
         <div className="container">
           <div className="navbar-header">
             <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -45,7 +45,20 @@ class MenuBox extends React.Component {
   }
 }
 
+
 class Menu extends React.Component {
+  componentDidUpdate() {
+    $(".dropdown-menu a").click(function(event){
+            var link=$(this).attr("id");
+            // alert(link);
+    //        event.preventDefault();
+    ReactDOM.render(
+     <Content activemenu=link />,
+     document.getElementById('content')
+    );
+          })
+  }
+
   render() {
     return (
       <ul className="nav navbar-nav">
@@ -54,15 +67,10 @@ class Menu extends React.Component {
                     <a className="dropdown-toggle" href={m.Link} data-toggle="dropdown" role="button"> {m.Name}</a>
                     <ul className="dropdown-menu">
                       {m.Items && m.Items.map(function(mm,ii){
-                        return  <li key={mm.Link}>
-                                  <a className={mm.Link} href="javascript:void(0)"> {mm.Name}</a>
-                                  <script>
-                                    var js="alert('{mm.Link}');return false;";
-                                    var newclick=new Function(js);
-                                    $(".users").attr("onclick","").click(newclick);
-                                    
-                                  
-                                   </script> 
+                        return  <li key={mm.Link} >
+                                  <a id={mm.Link} >
+                                    {mm.Name}
+                                  </a>
                                 </li>
                         })
                       }
@@ -70,6 +78,7 @@ class Menu extends React.Component {
                   </li>;
           })
         }
+       
        </ul>
       
     );
