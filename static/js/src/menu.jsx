@@ -1,4 +1,8 @@
 
+var Content = require('./content.jsx');
+
+
+
 class MenuBox extends React.Component {
   constructor() {
      super();
@@ -12,7 +16,6 @@ class MenuBox extends React.Component {
       dataType: 'json',
       success: function(data,textStatus, xhr) {
         this.setState({data:data});
-    //    $("#menu").append(data.Items[0].Name)
       }.bind(this),
       beforeSend: function(xhr) {
          xhr.setRequestHeader('Authorization','Bearer ' + t);
@@ -26,18 +29,11 @@ class MenuBox extends React.Component {
         <div className="container">
           <div className="navbar-header">
             <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-              <span className="sr-only">Toggle navigation</span>
-              <span className="icon-bar"></span>
-              <span className="icon-bar"></span>
-              <span className="icon-bar"></span>
-            </button>
+             </button>
             <a className="navbar-brand" href="#">CRM4Loans</a>
           </div>
           <div id="navbar" className="navbar-collapse collapse">
-            
               <Menu data={this.state.data.Items} />
-           
-            
           </div>
         </div>
       </nav>
@@ -45,18 +41,16 @@ class MenuBox extends React.Component {
   }
 }
 
-
 class Menu extends React.Component {
+ 
   componentDidUpdate() {
+    var link;
     $(".dropdown-menu a").click(function(event){
-            var link=$(this).attr("id");
-            // alert(link);
-    //        event.preventDefault();
-    ReactDOM.render(
-     <Content activemenu=link />,
-     document.getElementById('content')
-    );
-          })
+            link=$(this).attr("id");
+            ReactDOM.render(<Content activemenu={link} />,
+              document.getElementById('content')
+            );
+    });
   }
 
   render() {
@@ -85,24 +79,6 @@ class Menu extends React.Component {
   }
 }
 
-
-class Content extends React.Component {
-  constructor() {
-      super();
-      this.state={
-        activemenu: "users"};
-  }
-
-  render() {
-      return (
-        <div>
-          {this.props.activemenu}
-        </div>
-        )
-    }
-
-
-}
 
 
 ReactDOM.render(
