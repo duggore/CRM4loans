@@ -1,12 +1,13 @@
 package controllers
 
 import (
+	"CRM4loans/app/models"
+	"CRM4loans/settings"
 	"encoding/json"
 	"net/http"
-
-	"CRM4loans/app/models"
 )
 
+//AddUserController - controller add new user
 func AddUserController(w http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
 	newUser := new(models.User)
 	decoder := json.NewDecoder(r.Body)
@@ -17,6 +18,16 @@ func AddUserController(w http.ResponseWriter, r *http.Request, next http.Handler
 	w.WriteHeader(http.StatusOK)
 	response, _ := json.Marshal(newUser)
 	w.Write(response)
+}
+
+//GetUsersController - controller getting all users
+func GetUsersController(w http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	response, _ := json.Marshal(settings.Cfg.User)
+	w.Write(response)
+
 }
 
 //GetFormUserController - get user form
