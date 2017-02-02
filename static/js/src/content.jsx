@@ -1,6 +1,9 @@
-var Users = require('./users.jsx');
 
-var Content= class ContentClass extends React.Component {
+
+import {Users} from './users.jsx';
+import {Groups} from './groups.jsx';
+
+export var Content= class ContentClass extends React.Component {
 	constructor() {
     	super();
      	this.state={
@@ -18,7 +21,7 @@ var Content= class ContentClass extends React.Component {
 	    	case "groups":
 	    		return (
 		    		<div>
-		    			<Users />
+		    			<Groups />
 		    		</div>
 	    		)
 

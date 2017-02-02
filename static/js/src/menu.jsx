@@ -1,6 +1,5 @@
 
-var Content = require('./content.jsx');
-
+import {Content} from './content.jsx';
 
 
 class MenuBox extends React.Component {

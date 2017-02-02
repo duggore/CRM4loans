@@ -48,13 +48,13 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
+	var _content = __webpack_require__(1);
+	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var Content = __webpack_require__(1);
 	
 	var MenuBox = function (_React$Component) {
 	  _inherits(MenuBox, _React$Component);
@@ -130,7 +130,7 @@
 	      var link;
 	      $(".dropdown-menu a").click(function (event) {
 	        link = $(this).attr("id");
-	        ReactDOM.render(React.createElement(Content, { activemenu: link }), document.getElementById('content'));
+	        ReactDOM.render(React.createElement(_content.Content, { activemenu: link }), document.getElementById('content'));
 	      });
 	    }
 	  }, {
@@ -179,9 +179,18 @@
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.Content = undefined;
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _users = __webpack_require__(2);
+	
+	var _groups = __webpack_require__(3);
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
@@ -189,9 +198,7 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var Users = __webpack_require__(2);
-	
-	var Content = function (_React$Component) {
+	var Content = exports.Content = function (_React$Component) {
 		_inherits(ContentClass, _React$Component);
 	
 		function ContentClass() {
@@ -205,20 +212,20 @@
 		}
 	
 		_createClass(ContentClass, [{
-			key: "render",
+			key: 'render',
 			value: function render() {
 				switch (this.props.activemenu) {
 					case "users":
 						return React.createElement(
-							"div",
+							'div',
 							null,
-							React.createElement(Users, null)
+							React.createElement(_users.Users, null)
 						);
 					case "groups":
 						return React.createElement(
-							"div",
+							'div',
 							null,
-							React.createElement(Users, null)
+							React.createElement(_groups.Groups, null)
 						);
 	
 				}
@@ -234,6 +241,10 @@
 
 	"use strict";
 	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -242,27 +253,237 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var Users = function (_React$Component) {
-	  _inherits(UsersClass, _React$Component);
+	var Users = exports.Users = function (_React$Component) {
+	    _inherits(UsersClass, _React$Component);
 	
-	  function UsersClass() {
-	    _classCallCheck(this, UsersClass);
+	    function UsersClass() {
+	        _classCallCheck(this, UsersClass);
 	
-	    return _possibleConstructorReturn(this, (UsersClass.__proto__ || Object.getPrototypeOf(UsersClass)).call(this));
+	        var _this = _possibleConstructorReturn(this, (UsersClass.__proto__ || Object.getPrototypeOf(UsersClass)).call(this));
+	
+	        _this.state = {
+	            selected: true
+	        };
+	        return _this;
+	    }
+	
+	    _createClass(UsersClass, [{
+	        key: "render",
+	        value: function render() {
+	            return React.createElement(
+	                "div",
+	                null,
+	                React.createElement(
+	                    "h2",
+	                    null,
+	                    "Users component"
+	                ),
+	                React.createElement(
+	                    "div",
+	                    { className: "btn-group", role: "group", "aria-label": "..." },
+	                    React.createElement(
+	                        "button",
+	                        { type: "button", className: "btn btn-default" },
+	                        "Add new user"
+	                    ),
+	                    React.createElement(ButtonDeleteUser, { visible: this.state.selected })
+	                ),
+	                React.createElement(
+	                    "div",
+	                    null,
+	                    React.createElement(UserList, { parentContext: this })
+	                )
+	            );
+	        }
+	    }]);
+	
+	    return UsersClass;
+	}(React.Component);
+	
+	var ButtonDeleteUser = function (_React$Component2) {
+	    _inherits(ButtonDeleteUser, _React$Component2);
+	
+	    function ButtonDeleteUser() {
+	        _classCallCheck(this, ButtonDeleteUser);
+	
+	        return _possibleConstructorReturn(this, (ButtonDeleteUser.__proto__ || Object.getPrototypeOf(ButtonDeleteUser)).call(this));
+	    }
+	
+	    _createClass(ButtonDeleteUser, [{
+	        key: "render",
+	        value: function render() {
+	
+	            if (this.props.visible) {
+	                return React.createElement(
+	                    "button",
+	                    { type: "button", className: "btn btn-default" },
+	                    "Delete user"
+	                );
+	            }
+	            return null;
+	        }
+	    }]);
+	
+	    return ButtonDeleteUser;
+	}(React.Component);
+	
+	var UserList = function (_React$Component3) {
+	    _inherits(UserList, _React$Component3);
+	
+	    function UserList() {
+	        _classCallCheck(this, UserList);
+	
+	        var _this3 = _possibleConstructorReturn(this, (UserList.__proto__ || Object.getPrototypeOf(UserList)).call(this));
+	
+	        _this3.state = {
+	            users: [],
+	            parentContext: _this3.props.parentContext
+	        };
+	        return _this3;
+	    }
+	
+	    _createClass(UserList, [{
+	        key: "componentDidMount",
+	        value: function componentDidMount() {
+	            $.ajax({
+	                url: "/api/v1/users/getall",
+	                type: 'POST',
+	                dataType: 'json',
+	                success: function (data, textStatus, xhr) {
+	                    this.setState({ users: data });
+	                }.bind(this),
+	                beforeSend: function (xhr) {
+	                    xhr.setRequestHeader('Authorization', 'Bearer ' + t);
+	                }.bind(this)
+	            });
+	        }
+	    }, {
+	        key: "componentDidUpdate",
+	        value: function componentDidUpdate() {
+	            $("input[type=\"checkbox\"]").click(function (event) {
+	                this.setState({ selected: false });
+	            }).bind(this.props.parentContext);
+	        }
+	    }, {
+	        key: "render",
+	        value: function render() {
+	            return React.createElement(
+	                "table",
+	                { className: "table table-striped table-hover" },
+	                React.createElement(
+	                    "thead",
+	                    null,
+	                    React.createElement(
+	                        "tr",
+	                        null,
+	                        React.createElement(
+	                            "td",
+	                            null,
+	                            React.createElement("input", { type: "checkbox" })
+	                        ),
+	                        React.createElement(
+	                            "td",
+	                            null,
+	                            "\u2116"
+	                        ),
+	                        React.createElement(
+	                            "td",
+	                            null,
+	                            "Login"
+	                        ),
+	                        React.createElement(
+	                            "td",
+	                            null,
+	                            "Name"
+	                        ),
+	                        React.createElement(
+	                            "td",
+	                            null,
+	                            "Phone number"
+	                        )
+	                    )
+	                ),
+	                React.createElement(
+	                    "tbody",
+	                    null,
+	                    this.state.users && this.state.users.map(function (m, i) {
+	                        return React.createElement(
+	                            "tr",
+	                            { key: i },
+	                            React.createElement(
+	                                "td",
+	                                null,
+	                                React.createElement("input", { type: "checkbox" })
+	                            ),
+	                            React.createElement(
+	                                "td",
+	                                null,
+	                                i
+	                            ),
+	                            React.createElement(
+	                                "td",
+	                                null,
+	                                m.Username
+	                            ),
+	                            React.createElement(
+	                                "td",
+	                                null,
+	                                m.Name
+	                            ),
+	                            React.createElement(
+	                                "td",
+	                                null,
+	                                m.Phone
+	                            )
+	                        );
+	                    })
+	                )
+	            );
+	        }
+	    }]);
+	
+	    return UserList;
+	}(React.Component);
+
+/***/ },
+/* 3 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Groups = exports.Groups = function (_React$Component) {
+	  _inherits(GroupsClass, _React$Component);
+	
+	  function GroupsClass() {
+	    _classCallCheck(this, GroupsClass);
+	
+	    return _possibleConstructorReturn(this, (GroupsClass.__proto__ || Object.getPrototypeOf(GroupsClass)).call(this));
 	  }
 	
-	  _createClass(UsersClass, [{
+	  _createClass(GroupsClass, [{
 	    key: "render",
 	    value: function render() {
 	      return React.createElement(
 	        "div",
 	        null,
-	        "Users component"
+	        "Groups component"
 	      );
 	    }
 	  }]);
 	
-	  return UsersClass;
+	  return GroupsClass;
 	}(React.Component);
 
 /***/ }
