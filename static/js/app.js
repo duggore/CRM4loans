@@ -262,12 +262,24 @@
 	        var _this = _possibleConstructorReturn(this, (UsersClass.__proto__ || Object.getPrototypeOf(UsersClass)).call(this));
 	
 	        _this.state = {
-	            selected: true
+	            selected: 0
 	        };
+	        _this.selectUser = _this.selectUser.bind(_this);
+	        _this.deselectUser = _this.deselectUser.bind(_this);
 	        return _this;
 	    }
 	
 	    _createClass(UsersClass, [{
+	        key: "selectUser",
+	        value: function selectUser() {
+	            this.setState({ selected: this.state.selected + 1 });
+	        }
+	    }, {
+	        key: "deselectUser",
+	        value: function deselectUser() {
+	            this.setState({ selected: this.state.selected - 1 });
+	        }
+	    }, {
 	        key: "render",
 	        value: function render() {
 	            return React.createElement(
@@ -291,7 +303,9 @@
 	                React.createElement(
 	                    "div",
 	                    null,
-	                    React.createElement(UserList, { parentContext: this })
+	                    React.createElement(UL, { select: this.selectUser,
+	                        deselect: this.deselectUser
+	                    })
 	                )
 	            );
 	        }
@@ -313,7 +327,7 @@
 	        key: "render",
 	        value: function render() {
 	
-	            if (this.props.visible) {
+	            if (this.props.visible > 0) {
 	                return React.createElement(
 	                    "button",
 	                    { type: "button", className: "btn btn-default" },
@@ -327,17 +341,17 @@
 	    return ButtonDeleteUser;
 	}(React.Component);
 	
-	var UserList = function (_React$Component3) {
+	var UL = exports.UL = function (_React$Component3) {
 	    _inherits(UserList, _React$Component3);
 	
-	    function UserList() {
+	    function UserList(props) {
 	        _classCallCheck(this, UserList);
 	
-	        var _this3 = _possibleConstructorReturn(this, (UserList.__proto__ || Object.getPrototypeOf(UserList)).call(this));
+	        var _this3 = _possibleConstructorReturn(this, (UserList.__proto__ || Object.getPrototypeOf(UserList)).call(this, props));
 	
 	        _this3.state = {
-	            users: [],
-	            parentContext: _this3.props.parentContext
+	            users: []
+	
 	        };
 	        return _this3;
 	    }
@@ -358,11 +372,13 @@
 	            });
 	        }
 	    }, {
-	        key: "componentDidUpdate",
-	        value: function componentDidUpdate() {
-	            $("input[type=\"checkbox\"]").click(function (event) {
-	                this.setState({ selected: false });
-	            }).bind(this.props.parentContext);
+	        key: "changeUserSelection",
+	        value: function changeUserSelection(event) {
+	            if (event.target.checked) {
+	                this.props.select();
+	            } else {
+	                this.props.deselect();
+	            }
 	        }
 	    }, {
 	        key: "render",
@@ -376,11 +392,7 @@
 	                    React.createElement(
 	                        "tr",
 	                        null,
-	                        React.createElement(
-	                            "td",
-	                            null,
-	                            React.createElement("input", { type: "checkbox" })
-	                        ),
+	                        React.createElement("td", null),
 	                        React.createElement(
 	                            "td",
 	                            null,
@@ -413,7 +425,7 @@
 	                            React.createElement(
 	                                "td",
 	                                null,
-	                                React.createElement("input", { type: "checkbox" })
+	                                React.createElement("input", { type: "checkbox", onChange: this.changeUserSelection.bind(this) })
 	                            ),
 	                            React.createElement(
 	                                "td",
@@ -436,7 +448,7 @@
 	                                m.Phone
 	                            )
 	                        );
-	                    })
+	                    }.bind(this))
 	                )
 	            );
 	        }
