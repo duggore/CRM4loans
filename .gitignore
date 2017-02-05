@@ -1,3 +1,4 @@
 /build/*
 !/build/static/*
 /static/js/node_modules
+/static/js/app.js.map
