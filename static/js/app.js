@@ -262,29 +262,48 @@
 	        var _this = _possibleConstructorReturn(this, (UsersClass.__proto__ || Object.getPrototypeOf(UsersClass)).call(this));
 	
 	        _this.state = {
-	            selected: 0
+	            selected: 0,
+	            selectedUser: {
+	                login: "",
+	                name: "",
+	                phone: ""
+	            }
 	        };
 	        _this.selectUser = _this.selectUser.bind(_this);
 	        _this.deselectUser = _this.deselectUser.bind(_this);
+	        //        this.showEditWindow=this.showEditWindow.bind(this);
 	        return _this;
 	    }
 	
 	    _createClass(UsersClass, [{
 	        key: "selectUser",
-	        value: function selectUser() {
-	            this.setState({ selected: this.state.selected + 1 });
+	        value: function selectUser(user) {
+	
+	            this.setState({ selected: this.state.selected + 1,
+	                selectedUser: user });
 	        }
 	    }, {
 	        key: "deselectUser",
 	        value: function deselectUser() {
-	            this.setState({ selected: this.state.selected - 1 });
+	            this.setState({ selected: this.state.selected - 1,
+	                selectedUser: {
+	                    login: "",
+	                    name: "",
+	                    phone: "" } });
 	        }
+	
+	        // showEditWindow() {
+	        //     this.setState({editWindow:true});
+	        // }
+	
+	
 	    }, {
 	        key: "render",
 	        value: function render() {
 	            return React.createElement(
 	                "div",
 	                null,
+	                React.createElement(EditWindow, { user: this.state.selectedUser }),
 	                React.createElement(
 	                    "h2",
 	                    null,
@@ -298,14 +317,15 @@
 	                        { type: "button", className: "btn btn-default" },
 	                        "Add new user"
 	                    ),
+	                    React.createElement(ButtonEditUser, { visible: this.state.selected,
+	                        showEditWindow: this.showEditWindow }),
 	                    React.createElement(ButtonDeleteUser, { visible: this.state.selected })
 	                ),
 	                React.createElement(
 	                    "div",
 	                    null,
 	                    React.createElement(UL, { select: this.selectUser,
-	                        deselect: this.deselectUser
-	                    })
+	                        deselect: this.deselectUser })
 	                )
 	            );
 	        }
@@ -341,19 +361,50 @@
 	    return ButtonDeleteUser;
 	}(React.Component);
 	
-	var UL = exports.UL = function (_React$Component3) {
-	    _inherits(UserList, _React$Component3);
+	var ButtonEditUser = function (_React$Component3) {
+	    _inherits(ButtonEditUser, _React$Component3);
+	
+	    function ButtonEditUser(props) {
+	        _classCallCheck(this, ButtonEditUser);
+	
+	        return _possibleConstructorReturn(this, (ButtonEditUser.__proto__ || Object.getPrototypeOf(ButtonEditUser)).call(this, props));
+	    }
+	    // showEditWindow() {
+	    //     EditWindow.setState({visible:true})
+	    // }
+	
+	    _createClass(ButtonEditUser, [{
+	        key: "render",
+	        value: function render() {
+	
+	            if (this.props.visible == 1) {
+	                return React.createElement(
+	                    "button",
+	                    { type: "button", className: "btn btn-default", "data-toggle": "modal", "data-target": "#modalWindowEditUser" },
+	                    "Edit user"
+	                ) //onClick={this.props.showEditWindow.bind(this)}
+	                ;
+	            }
+	            return null;
+	        }
+	    }]);
+	
+	    return ButtonEditUser;
+	}(React.Component);
+	
+	var UL = exports.UL = function (_React$Component4) {
+	    _inherits(UserList, _React$Component4);
 	
 	    function UserList(props) {
 	        _classCallCheck(this, UserList);
 	
-	        var _this3 = _possibleConstructorReturn(this, (UserList.__proto__ || Object.getPrototypeOf(UserList)).call(this, props));
+	        var _this4 = _possibleConstructorReturn(this, (UserList.__proto__ || Object.getPrototypeOf(UserList)).call(this, props));
 	
-	        _this3.state = {
+	        _this4.state = {
 	            users: []
 	
 	        };
-	        return _this3;
+	        return _this4;
 	    }
 	
 	    _createClass(UserList, [{
@@ -375,7 +426,7 @@
 	        key: "changeUserSelection",
 	        value: function changeUserSelection(event) {
 	            if (event.target.checked) {
-	                this.props.select();
+	                this.props.select(this.state.users[event.target.id]);
 	            } else {
 	                this.props.deselect();
 	            }
@@ -425,7 +476,7 @@
 	                            React.createElement(
 	                                "td",
 	                                null,
-	                                React.createElement("input", { type: "checkbox", onChange: this.changeUserSelection.bind(this) })
+	                                React.createElement("input", { type: "checkbox", id: i, onChange: this.changeUserSelection.bind(this) })
 	                            ),
 	                            React.createElement(
 	                                "td",
@@ -455,6 +506,124 @@
 	    }]);
 	
 	    return UserList;
+	}(React.Component);
+	
+	var EditWindow = exports.EditWindow = function (_React$Component5) {
+	    _inherits(EditUserWindow, _React$Component5);
+	
+	    function EditUserWindow(props) {
+	        _classCallCheck(this, EditUserWindow);
+	
+	        var _this5 = _possibleConstructorReturn(this, (EditUserWindow.__proto__ || Object.getPrototypeOf(EditUserWindow)).call(this, props));
+	
+	        _this5.state = {
+	            user: {
+	                login: "",
+	                name: "",
+	                phone: ""
+	            }
+	        };
+	
+	        // this.state={
+	        //     visible: false
+	        // }
+	
+	        return _this5;
+	    }
+	
+	    _createClass(EditUserWindow, [{
+	        key: "render",
+	        value: function render() {
+	            //       if (this.props.visible) {
+	            if (this.props.user == undefined) {
+	                this.state = {
+	                    user: {
+	                        login: "",
+	                        name: "",
+	                        phone: ""
+	                    } };
+	            } else {
+	                this.state = {
+	                    user: this.props.user
+	                };
+	            }
+	            return React.createElement(
+	                "div",
+	                { className: "modal fade", id: "modalWindowEditUser" },
+	                React.createElement(
+	                    "div",
+	                    { className: "modal-dialog", role: "document" },
+	                    React.createElement(
+	                        "div",
+	                        { className: "modal-content" },
+	                        React.createElement(
+	                            "div",
+	                            { className: "modal-header" },
+	                            React.createElement(
+	                                "button",
+	                                { type: "button", className: "close", "data-dismiss": "modal", "aria-label": "Close" },
+	                                React.createElement("span", { "aria-hidden": "true" })
+	                            ),
+	                            "Edit User Information"
+	                        ),
+	                        React.createElement(
+	                            "div",
+	                            { className: "modal-body" },
+	                            React.createElement(
+	                                "div",
+	                                { className: "input-group" },
+	                                React.createElement(
+	                                    "span",
+	                                    { className: "input-group-addon" },
+	                                    "Login"
+	                                ),
+	                                React.createElement("input", { type: "text", className: "form-control", placeholder: "Login", value: this.state.user.Username })
+	                            ),
+	                            React.createElement(
+	                                "div",
+	                                { className: "input-group" },
+	                                React.createElement(
+	                                    "span",
+	                                    { className: "input-group-addon" },
+	                                    "Full name"
+	                                ),
+	                                React.createElement("input", { type: "text", className: "form-control", placeholder: "Full name" })
+	                            ),
+	                            React.createElement(
+	                                "div",
+	                                { className: "input-group" },
+	                                React.createElement(
+	                                    "span",
+	                                    { className: "input-group-addon" },
+	                                    "Phone number"
+	                                ),
+	                                React.createElement("input", { type: "text", className: "form-control", placeholder: "Phone number" })
+	                            )
+	                        ),
+	                        React.createElement(
+	                            "div",
+	                            { className: "modal-footer" },
+	                            React.createElement(
+	                                "button",
+	                                { type: "button", className: "btn btn-default", "data-dismiss": "modal" },
+	                                "Close"
+	                            ),
+	                            React.createElement(
+	                                "button",
+	                                { type: "button", className: "btn btn-primary" },
+	                                "Save changes"
+	                            )
+	                        )
+	                    )
+	                )
+	            );
+	            // } else {
+	            //     return (null)
+	            // }
+	        }
+	    }]);
+	
+	    return EditUserWindow;
 	}(React.Component);
 
 /***/ },
