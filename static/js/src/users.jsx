@@ -4,14 +4,17 @@ export var Users=class UsersClass extends React.Component {
         this.state={
             selected:0,
             selectedUser:{
-                login:"",
-                name:"",
-                phone:""
+                Login:"",
+                Lastname:"",
+                Firstname:"",
+                Middlename:"",
+                Phone:"",
+                Email:""
             }
         };
         this.selectUser=this.selectUser.bind(this);
         this.deselectUser=this.deselectUser.bind(this);
-//        this.showEditWindow=this.showEditWindow.bind(this);
+
     }
 
     selectUser(user) {
@@ -24,17 +27,16 @@ export var Users=class UsersClass extends React.Component {
     deselectUser() {
          this.setState({selected:this.state.selected-1,
          selectedUser:{
-            login:"",
-            name:"",
-            phone:""}});
+            Login:"",
+            Lastname:"",
+            Firstname:"",
+            Middlename:"",
+            Phone:"",
+            Email:""
+        }});
     }
 
-    // showEditWindow() {
-    //     this.setState({editWindow:true});
-    // }
-
-
-
+   
     render() {
     	return (
             <div>
@@ -80,9 +82,6 @@ class ButtonEditUser extends React.Component {
     constructor(props) {
         super(props);
     }
-    // showEditWindow() {
-    //     EditWindow.setState({visible:true})
-    // }
 
     render() {
 
@@ -137,8 +136,11 @@ export var UL=class UserList extends React.Component {
                         <td></td>
                         <td>№</td>
                         <td>Login</td>
-                        <td>Name</td>
-                        <td>Phone number</td>
+                        <td>Lastname</td>
+                        <td>Firstname</td>
+                        <td>Middlename</td>
+                        <td>Phone</td>
+                        <td>Email</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -149,8 +151,11 @@ export var UL=class UserList extends React.Component {
                                 <td><input type="checkbox" id={i} onChange={this.changeUserSelection.bind(this)}/></td>
                                 <td>{i}</td>
                                 <td>{m.Login}</td>
-                                <td>{m.Name}</td>
+                                <td>{m.Lastname}</td>
+                                <td>{m.Firstname}</td>
+                                <td>{m.Middlename}</td>
                                 <td>{m.Phone}</td>
+                                <td>{m.Email}</td>
                             </tr>
                             )
                     }.bind(this))
@@ -159,77 +164,102 @@ export var UL=class UserList extends React.Component {
             </table>
         )
     }
-
-
 }
 
 export var EditWindow=class EditUserWindow extends React.Component {
     constructor(props) {
         super(props);
         this.state={
+          
             user: {
-                login:"",
-                name:"",
-                phone:""
+                Login:"",
+                Lastname:"",
+                Firstname:"",
+                Middlename:"",
+                Phone:"",
+                Email:""
             }
         };
-        
-        // this.state={
-        //     visible: false
-        // }
-
     }
 
-   
+    change(event) {
+        if (event!=undefined) {
+            let newuser=this.state.user;
+            newuser[event.target.id]=event.target.value;
+            this.setState(
+                {   
+                    user:newuser
+                }
+            );
+        }
+    } 
+
+    save() {
+        console.log(this.state.user);
+        $("#modalWindowEditUser").modal("hide");
+    }  
 
     render() {
- //       if (this.props.visible) {
-            if (this.props.user==undefined) {
+        if (this.props.user==undefined) {
             this.state={
                 user: {
-                    login:"",
-                    name:"",
-                    phone:""
+                    Login:"",
+                    Lastname:"",
+                    Firstname:"",
+                    Middlename:"",
+                    Phone:"",
+                    Email:""
                 }}
         } else {
             this.state={
                 user:this.props.user
             }
         }
-            return (
-                <div className="modal fade" id="modalWindowEditUser">
-                    <div className="modal-dialog" role="document">
-                        <div className="modal-content">
-                            <div className="modal-header">
-                                <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
-                                Edit User Information
+        return (
+            
+            <div className="modal fade" id="modalWindowEditUser">
+                <div className="modal-dialog" role="document">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            Edit User Information
 
+                        </div>
+                        <div className="modal-body">
+                            <div className="input-group">
+                                <span className="input-group-addon" >Login</span>
+                                <input type="text" className="form-control" placeholder="Login" id="Login" value={this.state.user.Login} onChange={this.change.bind(this)}/> 
                             </div>
-                            <div className="modal-body">
-                                <div className="input-group">
-                                    <span className="input-group-addon" >Login</span>
-                                    <input type="text" className="form-control" placeholder="Login" value={this.state.user.Login}/> 
-                                </div>
-                                <div className="input-group">
-                                    <span className="input-group-addon" >Full name</span>
-                                    <input type="text" className="form-control" placeholder="Full name" />
-                                </div>
-                                <div className="input-group">
-                                    <span className="input-group-addon" >Phone number</span>
-                                    <input type="text" className="form-control" placeholder="Phone number" />
-                                </div>
-                                
+                            <div className="input-group">
+                                <span className="input-group-addon" >Lastname</span>
+                                <input type="text" className="form-control" placeholder="Lastname" id="Lastname" value={this.state.user.Lastname} onChange={this.change.bind(this)}/>
                             </div>
-                            <div className="modal-footer">
-                                <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
-                                <button type="button" className="btn btn-primary">Save changes</button>
+                            <div className="input-group">
+                                <span className="input-group-addon" >Firstname</span>
+                                <input type="text" className="form-control" placeholder="Firstname" id="Firstname" value={this.state.user.Firstname} onChange={this.change.bind(this)}/>
                             </div>
+                            <div className="input-group">
+                                <span className="input-group-addon" >Middlename</span>
+                                <input type="text" className="form-control" placeholder="Middlename" id="Middlename" value={this.state.user.Middlename} onChange={this.change.bind(this)}/>
+                            </div>
+                            <div className="input-group">
+                                <span className="input-group-addon" >Phone number</span>
+                                <input type="text" className="form-control" placeholder="Phone number" id="Phone" value={this.state.user.Phone} onChange={this.change.bind(this)}/>
+                            </div>
+                            <div className="input-group">
+                                <span className="input-group-addon" >Email</span>
+                                <input type="text" className="form-control" placeholder="Email" id="Email" value={this.state.user.Email} onChange={this.change.bind(this)}/>
+                            </div>
+                            
+                        </div>
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" className="btn btn-primary" onClick={this.save.bind(this)}>Save changes</button>
                         </div>
                     </div>
                 </div>
-            )
-        // } else {
-        //     return (null)
-        // }
+            </div>
+        )
+   
     }
 }

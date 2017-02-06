@@ -264,14 +264,17 @@
 	        _this.state = {
 	            selected: 0,
 	            selectedUser: {
-	                login: "",
-	                name: "",
-	                phone: ""
+	                Login: "",
+	                Lastname: "",
+	                Firstname: "",
+	                Middlename: "",
+	                Phone: "",
+	                Email: ""
 	            }
 	        };
 	        _this.selectUser = _this.selectUser.bind(_this);
 	        _this.deselectUser = _this.deselectUser.bind(_this);
-	        //        this.showEditWindow=this.showEditWindow.bind(this);
+	
 	        return _this;
 	    }
 	
@@ -287,16 +290,14 @@
 	        value: function deselectUser() {
 	            this.setState({ selected: this.state.selected - 1,
 	                selectedUser: {
-	                    login: "",
-	                    name: "",
-	                    phone: "" } });
+	                    Login: "",
+	                    Lastname: "",
+	                    Firstname: "",
+	                    Middlename: "",
+	                    Phone: "",
+	                    Email: ""
+	                } });
 	        }
-	
-	        // showEditWindow() {
-	        //     this.setState({editWindow:true});
-	        // }
-	
-	
 	    }, {
 	        key: "render",
 	        value: function render() {
@@ -369,9 +370,6 @@
 	
 	        return _possibleConstructorReturn(this, (ButtonEditUser.__proto__ || Object.getPrototypeOf(ButtonEditUser)).call(this, props));
 	    }
-	    // showEditWindow() {
-	    //     EditWindow.setState({visible:true})
-	    // }
 	
 	    _createClass(ButtonEditUser, [{
 	        key: "render",
@@ -457,12 +455,27 @@
 	                        React.createElement(
 	                            "td",
 	                            null,
-	                            "Name"
+	                            "Lastname"
 	                        ),
 	                        React.createElement(
 	                            "td",
 	                            null,
-	                            "Phone number"
+	                            "Firstname"
+	                        ),
+	                        React.createElement(
+	                            "td",
+	                            null,
+	                            "Middlename"
+	                        ),
+	                        React.createElement(
+	                            "td",
+	                            null,
+	                            "Phone"
+	                        ),
+	                        React.createElement(
+	                            "td",
+	                            null,
+	                            "Email"
 	                        )
 	                    )
 	                ),
@@ -491,12 +504,27 @@
 	                            React.createElement(
 	                                "td",
 	                                null,
-	                                m.Name
+	                                m.Lastname
+	                            ),
+	                            React.createElement(
+	                                "td",
+	                                null,
+	                                m.Firstname
+	                            ),
+	                            React.createElement(
+	                                "td",
+	                                null,
+	                                m.Middlename
 	                            ),
 	                            React.createElement(
 	                                "td",
 	                                null,
 	                                m.Phone
+	                            ),
+	                            React.createElement(
+	                                "td",
+	                                null,
+	                                m.Email
 	                            )
 	                        );
 	                    }.bind(this))
@@ -517,30 +545,48 @@
 	        var _this5 = _possibleConstructorReturn(this, (EditUserWindow.__proto__ || Object.getPrototypeOf(EditUserWindow)).call(this, props));
 	
 	        _this5.state = {
+	
 	            user: {
-	                login: "",
-	                name: "",
-	                phone: ""
+	                Login: "",
+	                Lastname: "",
+	                Firstname: "",
+	                Middlename: "",
+	                Phone: "",
+	                Email: ""
 	            }
 	        };
-	
-	        // this.state={
-	        //     visible: false
-	        // }
-	
 	        return _this5;
 	    }
 	
 	    _createClass(EditUserWindow, [{
+	        key: "change",
+	        value: function change(event) {
+	            if (event != undefined) {
+	                var newuser = this.state.user;
+	                newuser[event.target.id] = event.target.value;
+	                this.setState({
+	                    user: newuser
+	                });
+	            }
+	        }
+	    }, {
+	        key: "save",
+	        value: function save() {
+	            console.log(this.state.user);
+	            $("#modalWindowEditUser").modal("hide");
+	        }
+	    }, {
 	        key: "render",
 	        value: function render() {
-	            //       if (this.props.visible) {
 	            if (this.props.user == undefined) {
 	                this.state = {
 	                    user: {
-	                        login: "",
-	                        name: "",
-	                        phone: ""
+	                        Login: "",
+	                        Lastname: "",
+	                        Firstname: "",
+	                        Middlename: "",
+	                        Phone: "",
+	                        Email: ""
 	                    } };
 	            } else {
 	                this.state = {
@@ -562,7 +608,11 @@
 	                            React.createElement(
 	                                "button",
 	                                { type: "button", className: "close", "data-dismiss": "modal", "aria-label": "Close" },
-	                                React.createElement("span", { "aria-hidden": "true" })
+	                                React.createElement(
+	                                    "span",
+	                                    { "aria-hidden": "true" },
+	                                    "\xD7"
+	                                )
 	                            ),
 	                            "Edit User Information"
 	                        ),
@@ -577,7 +627,7 @@
 	                                    { className: "input-group-addon" },
 	                                    "Login"
 	                                ),
-	                                React.createElement("input", { type: "text", className: "form-control", placeholder: "Login", value: this.state.user.Login })
+	                                React.createElement("input", { type: "text", className: "form-control", placeholder: "Login", id: "Login", value: this.state.user.Login, onChange: this.change.bind(this) })
 	                            ),
 	                            React.createElement(
 	                                "div",
@@ -585,9 +635,29 @@
 	                                React.createElement(
 	                                    "span",
 	                                    { className: "input-group-addon" },
-	                                    "Full name"
+	                                    "Lastname"
 	                                ),
-	                                React.createElement("input", { type: "text", className: "form-control", placeholder: "Full name" })
+	                                React.createElement("input", { type: "text", className: "form-control", placeholder: "Lastname", id: "Lastname", value: this.state.user.Lastname, onChange: this.change.bind(this) })
+	                            ),
+	                            React.createElement(
+	                                "div",
+	                                { className: "input-group" },
+	                                React.createElement(
+	                                    "span",
+	                                    { className: "input-group-addon" },
+	                                    "Firstname"
+	                                ),
+	                                React.createElement("input", { type: "text", className: "form-control", placeholder: "Firstname", id: "Firstname", value: this.state.user.Firstname, onChange: this.change.bind(this) })
+	                            ),
+	                            React.createElement(
+	                                "div",
+	                                { className: "input-group" },
+	                                React.createElement(
+	                                    "span",
+	                                    { className: "input-group-addon" },
+	                                    "Middlename"
+	                                ),
+	                                React.createElement("input", { type: "text", className: "form-control", placeholder: "Middlename", id: "Middlename", value: this.state.user.Middlename, onChange: this.change.bind(this) })
 	                            ),
 	                            React.createElement(
 	                                "div",
@@ -597,7 +667,17 @@
 	                                    { className: "input-group-addon" },
 	                                    "Phone number"
 	                                ),
-	                                React.createElement("input", { type: "text", className: "form-control", placeholder: "Phone number" })
+	                                React.createElement("input", { type: "text", className: "form-control", placeholder: "Phone number", id: "Phone", value: this.state.user.Phone, onChange: this.change.bind(this) })
+	                            ),
+	                            React.createElement(
+	                                "div",
+	                                { className: "input-group" },
+	                                React.createElement(
+	                                    "span",
+	                                    { className: "input-group-addon" },
+	                                    "Email"
+	                                ),
+	                                React.createElement("input", { type: "text", className: "form-control", placeholder: "Email", id: "Email", value: this.state.user.Email, onChange: this.change.bind(this) })
 	                            )
 	                        ),
 	                        React.createElement(
@@ -610,16 +690,13 @@
 	                            ),
 	                            React.createElement(
 	                                "button",
-	                                { type: "button", className: "btn btn-primary" },
+	                                { type: "button", className: "btn btn-primary", onClick: this.save.bind(this) },
 	                                "Save changes"
 	                            )
 	                        )
 	                    )
 	                )
 	            );
-	            // } else {
-	            //     return (null)
-	            // }
 	        }
 	    }]);
 	

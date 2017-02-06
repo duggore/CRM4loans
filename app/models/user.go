@@ -7,6 +7,6 @@ type User struct {
 	Password   string `json:"Password" form:"password"`
 	Lastname   string `json:"Lastname" form:"lastname"`
 	Firstname  string `json:"Firstname" form:"firstname"`
-	Secondname string `json:"Secondname" form:"secondname"`
+	Middlename string `json:"Middlename" form:"middlename"`
 	Email      string `json:"Email" form:"email"`
 }
