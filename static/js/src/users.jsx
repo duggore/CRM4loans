@@ -148,7 +148,7 @@ export var UL=class UserList extends React.Component {
                             <tr key={i}>
                                 <td><input type="checkbox" id={i} onChange={this.changeUserSelection.bind(this)}/></td>
                                 <td>{i}</td>
-                                <td>{m.Username}</td>
+                                <td>{m.Login}</td>
                                 <td>{m.Name}</td>
                                 <td>{m.Phone}</td>
                             </tr>
@@ -208,7 +208,7 @@ export var EditWindow=class EditUserWindow extends React.Component {
                             <div className="modal-body">
                                 <div className="input-group">
                                     <span className="input-group-addon" >Login</span>
-                                    <input type="text" className="form-control" placeholder="Login" value={this.state.user.Username}/> 
+                                    <input type="text" className="form-control" placeholder="Login" value={this.state.user.Login}/> 
                                 </div>
                                 <div className="input-group">
                                     <span className="input-group-addon" >Full name</span>

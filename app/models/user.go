@@ -3,7 +3,7 @@ package models
 //User structure for users
 type User struct {
 	UUID       int    `json:"UUID" form:"uuid"`
-	Username   string `json:"Username" form:"username"`
+	Login      string `json:"Login" form:"login"`
 	Password   string `json:"Password" form:"password"`
 	Lastname   string `json:"Lastname" form:"lastname"`
 	Firstname  string `json:"Firstname" form:"firstname"`

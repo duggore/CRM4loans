@@ -4,15 +4,9 @@ import (
 	"CRM4loans/app/models"
 	"CRM4loans/app/models/site"
 	"encoding/json"
-	//	"fmt"
 	"html/template"
 	"io/ioutil"
 )
-
-// type UserPassword struct {
-// 	Username string
-// 	Password string
-// }
 
 type Settings struct {
 	PrivateKeyPath     string

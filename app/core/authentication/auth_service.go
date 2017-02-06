@@ -12,23 +12,21 @@ import (
 	"net/http"
 )
 
-//var TL models.ActiveTokenList
-
 //GetTokenFromReques - authentication and create token, return "" if error
 func GetTokenFromRequest(r *http.Request) []byte {
 	requestUser := new(models.User)
-	requestUser.Username = r.PostFormValue("username")
+	requestUser.Login = r.PostFormValue("login")
 	requestUser.Password = r.PostFormValue("password")
 
 	responseStatus, token := Login(requestUser)
 	if responseStatus == http.StatusOK {
 		log.Println("services.Login returned OK")
-		log.Println("add token for user", requestUser.Username)
-		//		TL.TokenList[string(token[:])] = requestUser.Username
+		log.Println("add token for user", requestUser.Login)
+
 		return token
 	}
 	log.Println("services.Login did not return OK")
-	return nil //[]byte("")
+	return nil
 
 }
 

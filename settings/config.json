@@ -3,10 +3,10 @@
 	"PublicKeyPath": "./settings/keys/public_key.pub",
 	"JWTExpirationDelta": 72,
 	"User":[
-		{ "UUID": 1, "Username":"test", "Password":"$2a$10$sROsNIREdAWmJyo2dDmMkuFMtdCbmh45yBRojO9gz1uxykw2NcrzK"},
-		{ "UUID": 2, "Username":"test1", "Password":"$2a$10$sROsNIREdAWmJyo2dDmMkuFMtdCbmh45yBRojO9gz1uxykw2NcrzK"},
-		{ "UUID": 3, "Username":"test2", "Password":"$2a$10$sROsNIREdAWmJyo2dDmMkuFMtdCbmh45yBRojO9gz1uxykw2NcrzK"},
-		{ "UUID": 4, "Username":"test3", "Password":"$2a$10$sROsNIREdAWmJyo2dDmMkuFMtdCbmh45yBRojO9gz1uxykw2NcrzK"}
+		{ "UUID": 1, "Login":"test", "Password":"$2a$10$sROsNIREdAWmJyo2dDmMkuFMtdCbmh45yBRojO9gz1uxykw2NcrzK"},
+		{ "UUID": 2, "Login":"test1", "Password":"$2a$10$sROsNIREdAWmJyo2dDmMkuFMtdCbmh45yBRojO9gz1uxykw2NcrzK"},
+		{ "UUID": 3, "Login":"test2", "Password":"$2a$10$sROsNIREdAWmJyo2dDmMkuFMtdCbmh45yBRojO9gz1uxykw2NcrzK"},
+		{ "UUID": 4, "Login":"test3", "Password":"$2a$10$sROsNIREdAWmJyo2dDmMkuFMtdCbmh45yBRojO9gz1uxykw2NcrzK"}
 	],
 	"Group":[
 		{ "GUID": 3,"Groupname":"test group","Users": [1]}

@@ -486,7 +486,7 @@
 	                            React.createElement(
 	                                "td",
 	                                null,
-	                                m.Username
+	                                m.Login
 	                            ),
 	                            React.createElement(
 	                                "td",
@@ -577,7 +577,7 @@
 	                                    { className: "input-group-addon" },
 	                                    "Login"
 	                                ),
-	                                React.createElement("input", { type: "text", className: "form-control", placeholder: "Login", value: this.state.user.Username })
+	                                React.createElement("input", { type: "text", className: "form-control", placeholder: "Login", value: this.state.user.Login })
 	                            ),
 	                            React.createElement(
 	                                "div",

@@ -1,24 +1,13 @@
 package controllers
 
 import (
-	//	"CRM4loans/app/models"
 	"CRM4loans/app/core/authentication"
-	//	"CRM4loans/app/core/permissions"
-	//	"CRM4loans/app/models"
-	//	"CRM4loans/app/models/site"
 	"CRM4loans/settings"
 	"encoding/json"
 	jwt "github.com/dgrijalva/jwt-go"
 	"log"
 	"net/http"
-	//	"strconv"
 )
-
-// type Claims struct {
-// 	//   Username string `json:"username"`
-// 	// recommended having
-// 	jwt.StandardClaims
-// }
 
 //MenuGet - return menu in JSON format
 func MenuGet(w http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
