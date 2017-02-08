@@ -274,6 +274,7 @@
 	        };
 	        _this.selectUser = _this.selectUser.bind(_this);
 	        _this.deselectUser = _this.deselectUser.bind(_this);
+	        _this.editUser = _this.editUser.bind(_this);
 	
 	        return _this;
 	    }
@@ -297,6 +298,13 @@
 	                    Phone: "",
 	                    Email: ""
 	                } });
+	        }
+	    }, {
+	        key: "editUser",
+	        value: function editUser(user) {
+	            if (user != undefined) {
+	                this.setState({ selectedUser: user });
+	            }
 	        }
 	    }, {
 	        key: "render",
@@ -326,7 +334,8 @@
 	                    "div",
 	                    null,
 	                    React.createElement(UL, { select: this.selectUser,
-	                        deselect: this.deselectUser })
+	                        deselect: this.deselectUser,
+	                        edit: this.editUser })
 	                )
 	            );
 	        }
@@ -429,6 +438,17 @@
 	                this.props.deselect();
 	            }
 	        }
+	
+	        //show editwindow
+	
+	    }, {
+	        key: "dblclick",
+	        value: function dblclick(event) {
+	            if (event.currentTarget.getAttribute("data-id") != undefined) {
+	                this.props.edit(this.state.users[event.currentTarget.getAttribute("data-id")]);
+	                $("#modalWindowEditUser").modal("show");
+	            }
+	        }
 	    }, {
 	        key: "render",
 	        value: function render() {
@@ -485,7 +505,7 @@
 	                    this.state.users && this.state.users.map(function (m, i) {
 	                        return React.createElement(
 	                            "tr",
-	                            { key: i },
+	                            { key: i, "data-id": i, onDoubleClick: this.dblclick.bind(this) },
 	                            React.createElement(
 	                                "td",
 	                                null,
@@ -542,20 +562,7 @@
 	    function EditUserWindow(props) {
 	        _classCallCheck(this, EditUserWindow);
 	
-	        var _this5 = _possibleConstructorReturn(this, (EditUserWindow.__proto__ || Object.getPrototypeOf(EditUserWindow)).call(this, props));
-	
-	        _this5.state = {
-	
-	            user: {
-	                Login: "",
-	                Lastname: "",
-	                Firstname: "",
-	                Middlename: "",
-	                Phone: "",
-	                Email: ""
-	            }
-	        };
-	        return _this5;
+	        return _possibleConstructorReturn(this, (EditUserWindow.__proto__ || Object.getPrototypeOf(EditUserWindow)).call(this, props));
 	    }
 	
 	    _createClass(EditUserWindow, [{

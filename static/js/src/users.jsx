@@ -14,6 +14,7 @@ export var Users=class UsersClass extends React.Component {
         };
         this.selectUser=this.selectUser.bind(this);
         this.deselectUser=this.deselectUser.bind(this);
+        this.editUser=this.editUser.bind(this);
 
     }
 
@@ -36,6 +37,11 @@ export var Users=class UsersClass extends React.Component {
         }});
     }
 
+    editUser(user) {
+        if (user!=undefined) {
+            this.setState({selectedUser:user});
+        }
+    }
    
     render() {
     	return (
@@ -53,7 +59,8 @@ export var Users=class UsersClass extends React.Component {
                 </div>
                 <div>
                     <UL select={this.selectUser}
-                        deselect={this.deselectUser} />
+                        deselect={this.deselectUser}
+                        edit={this.editUser} />
                 </div>
 
             </div>
@@ -128,6 +135,14 @@ export var UL=class UserList extends React.Component {
            
     }
 
+    //show editwindow
+    dblclick(event) {
+        if (event.currentTarget.getAttribute("data-id")!=undefined) {
+            this.props.edit(this.state.users[event.currentTarget.getAttribute("data-id")]);
+            $("#modalWindowEditUser").modal("show");
+        }
+    }
+
     render() {
         return (
             <table className="table table-striped table-hover">
@@ -147,7 +162,7 @@ export var UL=class UserList extends React.Component {
                 {
                     this.state.users && this.state.users.map(function(m,i){
                         return (
-                            <tr key={i}>
+                            <tr key={i} data-id={i} onDoubleClick={this.dblclick.bind(this)}>
                                 <td><input type="checkbox" id={i} onChange={this.changeUserSelection.bind(this)}/></td>
                                 <td>{i}</td>
                                 <td>{m.Login}</td>
@@ -169,17 +184,7 @@ export var UL=class UserList extends React.Component {
 export var EditWindow=class EditUserWindow extends React.Component {
     constructor(props) {
         super(props);
-        this.state={
-          
-            user: {
-                Login:"",
-                Lastname:"",
-                Firstname:"",
-                Middlename:"",
-                Phone:"",
-                Email:""
-            }
-        };
+        
     }
 
     change(event) {
