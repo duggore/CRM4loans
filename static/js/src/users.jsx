@@ -42,6 +42,19 @@ export var Users=class UsersClass extends React.Component {
             this.setState({selectedUser:user});
         }
     }
+
+    newUser() {
+        this.setState({
+            selectedUser: {
+               Login:"",
+                Lastname:"",
+                Firstname:"",
+                Middlename:"",
+                Phone:"",
+                Email:""
+            }});
+        $("#modalWindowEditUser").modal("show");
+    }
    
     render() {
     	return (
@@ -51,7 +64,7 @@ export var Users=class UsersClass extends React.Component {
         			Users component
         		</h2>
                 <div className="btn-group" role="group" aria-label="...">
-                    <button type="button" className="btn btn-default">Add new user</button>
+                    <button type="button" className="btn btn-default" onClick={this.newUser.bind(this)}>Add new user</button>
                     
                     <ButtonEditUser visible={this.state.selected}
                         showEditWindow={this.showEditWindow} />
@@ -184,6 +197,15 @@ export var UL=class UserList extends React.Component {
 export var EditWindow=class EditUserWindow extends React.Component {
     constructor(props) {
         super(props);
+        this.state={
+                user: {
+                    Login:"",
+                    Lastname:"",
+                    Firstname:"",
+                    Middlename:"",
+                    Phone:"",
+                    Email:""
+                }};
         
     }
 
@@ -204,9 +226,9 @@ export var EditWindow=class EditUserWindow extends React.Component {
         $("#modalWindowEditUser").modal("hide");
     }  
 
-    render() {
-        if (this.props.user==undefined) {
-            this.state={
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.user==undefined) {
+            this.setState({
                 user: {
                     Login:"",
                     Lastname:"",
@@ -214,14 +236,16 @@ export var EditWindow=class EditUserWindow extends React.Component {
                     Middlename:"",
                     Phone:"",
                     Email:""
-                }}
+                }});
         } else {
-            this.state={
-                user:this.props.user
-            }
-        }
-        return (
+            this.setState({
+                user:nextProps.user});
             
+        }
+    }
+
+    render() {
+        return (
             <div className="modal fade" id="modalWindowEditUser">
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">

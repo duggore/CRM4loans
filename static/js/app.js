@@ -307,6 +307,20 @@
 	            }
 	        }
 	    }, {
+	        key: "newUser",
+	        value: function newUser() {
+	            this.setState({
+	                selectedUser: {
+	                    Login: "",
+	                    Lastname: "",
+	                    Firstname: "",
+	                    Middlename: "",
+	                    Phone: "",
+	                    Email: ""
+	                } });
+	            $("#modalWindowEditUser").modal("show");
+	        }
+	    }, {
 	        key: "render",
 	        value: function render() {
 	            return React.createElement(
@@ -323,7 +337,7 @@
 	                    { className: "btn-group", role: "group", "aria-label": "..." },
 	                    React.createElement(
 	                        "button",
-	                        { type: "button", className: "btn btn-default" },
+	                        { type: "button", className: "btn btn-default", onClick: this.newUser.bind(this) },
 	                        "Add new user"
 	                    ),
 	                    React.createElement(ButtonEditUser, { visible: this.state.selected,
@@ -562,7 +576,19 @@
 	    function EditUserWindow(props) {
 	        _classCallCheck(this, EditUserWindow);
 	
-	        return _possibleConstructorReturn(this, (EditUserWindow.__proto__ || Object.getPrototypeOf(EditUserWindow)).call(this, props));
+	        var _this5 = _possibleConstructorReturn(this, (EditUserWindow.__proto__ || Object.getPrototypeOf(EditUserWindow)).call(this, props));
+	
+	        _this5.state = {
+	            user: {
+	                Login: "",
+	                Lastname: "",
+	                Firstname: "",
+	                Middlename: "",
+	                Phone: "",
+	                Email: ""
+	            } };
+	
+	        return _this5;
 	    }
 	
 	    _createClass(EditUserWindow, [{
@@ -583,10 +609,10 @@
 	            $("#modalWindowEditUser").modal("hide");
 	        }
 	    }, {
-	        key: "render",
-	        value: function render() {
-	            if (this.props.user == undefined) {
-	                this.state = {
+	        key: "componentWillReceiveProps",
+	        value: function componentWillReceiveProps(nextProps) {
+	            if (nextProps.user == undefined) {
+	                this.setState({
 	                    user: {
 	                        Login: "",
 	                        Lastname: "",
@@ -594,12 +620,15 @@
 	                        Middlename: "",
 	                        Phone: "",
 	                        Email: ""
-	                    } };
+	                    } });
 	            } else {
-	                this.state = {
-	                    user: this.props.user
-	                };
+	                this.setState({
+	                    user: nextProps.user });
 	            }
+	        }
+	    }, {
+	        key: "render",
+	        value: function render() {
 	            return React.createElement(
 	                "div",
 	                { className: "modal fade", id: "modalWindowEditUser" },
